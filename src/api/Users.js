@@ -1,9 +1,10 @@
 //import axios from '../utils/axios';
 import axios from 'axios';
+const baseUrl = process.env.NODE_ENV === 'production' ? 'shenyu16.com' : 'http://localhost:3003';
 export const fetchUsers = () => {
-  return axios('http://localhost:3003/api/auth/users');
+  return axios(baseUrl + `/api/auth/users`);
 }
 
 export const createUser = (user) => {
-  return axios.post('http://localhost:3003/api/auth/addUser', {user});
+  return axios.post(baseUrl + '/api/auth/addUser', {user});
 }

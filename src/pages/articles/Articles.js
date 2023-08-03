@@ -13,14 +13,14 @@ function App() {
   const [re_enter, setReEnter] = useState('');
 
   return (
-    <div className='app'>
-      <div>Here is a Home page.</div>
-      <button className='button'
+    <div>
+      <div>Here is a articles page.</div>
+      <button style={{marginTop: '10px'}}
         onClick={() => dispatch(getUsers())}
       >
         Get all users
       </button>
-      <button className='button'
+      {/* <button className='button'
         onClick={() => dispatch(incrementAsync(input))}
       >
         Add a new user
@@ -30,10 +30,10 @@ function App() {
         <input type='email' name='email' value={email} onChange={setEmail} placeholder='email' />
         <input type='password' name='password' value={pw} onChange={setPw} placeholder='password' />
         <input type='password' name='re-enter' value={re_enter} onChange={setReEnter} placeholder='re-enter password' />
-      </div>
+      </div> */}
       {users.map(user => {
         return (
-          <div>
+          <div key={user.user_id}>
             <div>{user.username}</div>
             <div>{user.email}</div>
             <div>{user.created_on}</div>
