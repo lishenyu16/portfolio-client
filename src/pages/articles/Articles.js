@@ -15,11 +15,11 @@ function App() {
   return (
     <div>
       <div>Here is a articles page.</div>
-      <button style={{marginTop: '10px'}}
+      {/* <button style={{marginTop: '10px'}}
         onClick={() => dispatch(getUsers())}
       >
         Get all users
-      </button>
+      </button> */}
       {/* <button className='button'
         onClick={() => dispatch(incrementAsync(input))}
       >

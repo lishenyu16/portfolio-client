@@ -5,6 +5,7 @@ import Nav from './Nav';
 import Sider from './Sider';
 import Canva from './canva';
 import Button from '@mui/material/Button';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import './style.css';
 import './mobile.css';
 
@@ -50,7 +51,7 @@ export default (props) => {
             fontSize: '20px',
           }}
         >
-          Up
+          <ArrowUpwardIcon />
         </Button>
       </div>
       <div id='footer'>
