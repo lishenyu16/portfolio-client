@@ -26,6 +26,8 @@ export default () => {
 
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
+        contentStyle={{ background: 'lightgray' }}
+        contentArrowStyle={{ borderRight: '7px solid  lightgray' }}
         date="03/2018 - 06/2020"
         iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
         icon={<WorkHistoryIcon />}
@@ -39,6 +41,8 @@ export default () => {
 
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
+        contentStyle={{ background: 'lightgray' }}
+        contentArrowStyle={{ borderRight: '7px solid  lightgray' }}
         date="12/2016 - 03/2018"
         iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
         icon={<WorkHistoryIcon />}
@@ -52,6 +56,8 @@ export default () => {
 
       <VerticalTimelineElement
         className="vertical-timeline-element--education"
+        contentStyle={{ background: 'lightgray' }}
+        contentArrowStyle={{ borderRight: '7px solid  lightgray' }}
         date="2013 - 2016"
         iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
         icon={<SchoolIcon />}
@@ -65,6 +71,8 @@ export default () => {
 
       <VerticalTimelineElement
         className="vertical-timeline-element--education"
+        contentStyle={{ background: 'lightgray' }}
+        contentArrowStyle={{ borderRight: '7px solid  lightgray' }}
         date="2008 - 2012"
         iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
         icon={<SchoolIcon />}

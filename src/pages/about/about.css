@@ -1,0 +1,38 @@
+.link_item {
+  width: 250px; 
+  max-Width: 80%;
+  color: inherit;
+}
+
+.skill_item {
+  display: flex;
+  flex-wrap: wrap; 
+  width: 100%;
+  align-items: center;
+}
+
+.level_title {
+  width: 150px;
+  color: #959a6f;
+}
+
+.level_bar {
+  width: 400px;
+  max-width: 80%;
+  height: 14px;
+  background-color: #f5f5f5;
+  border-radius: 2px; 
+  background-clip: padding-box,;
+  display: flex; 
+  font-size: 14px;
+  margin-left: 5%;
+}
+
+.progress_bar {
+  background-color: #68bacd;
+  display: flex;
+  flex-direction: column; 
+  color: #fff;
+  text-align: center; 
+  white-Space: nowrap;
+}
