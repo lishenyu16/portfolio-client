@@ -15,7 +15,7 @@ export default (config = {}) => {
         withCredentials: process.env.NODE_ENV === 'production',
       }) :
       axios.create({
-        timeout: 10000,
+        timeout: 30000,
         //baseUrl,
         withCredentials: process.env.NODE_ENV === 'production',
       });

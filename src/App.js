@@ -14,6 +14,7 @@ import './app.global.css';
 import { useDispatch } from 'react-redux';
 import { getUserInfoThunk } from './redux/reducers/userSlice';
 import { getInfoFromCookie } from './utils/utils';
+import { saveVisitorInfo } from './api/Users';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,15 @@ function App() {
         dispatch(getUserInfoThunk(userInfo.token));
       })();
     }
+    (async () => {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const ipBody = await res.json();
+        saveVisitorInfo(ipBody.ip);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
   }, []);
 
   return (

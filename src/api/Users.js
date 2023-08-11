@@ -17,3 +17,7 @@ export const confirmEmail = (verificationCode, userId) => {
 export const fetchUserInfoFromToken = (token) => {
   return axios().get(`${prefix}/userInfo/${token}`);
 }
+
+export const saveVisitorInfo = (ip) => {
+  return axios().post(`${prefix}/saveVisitorInfo`, { ip });
+}

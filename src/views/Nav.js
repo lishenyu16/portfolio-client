@@ -125,7 +125,9 @@ export default (props) => {
                 </Menu>
               </div>
             ) :
-              <Button color="inherit">Login</Button>}
+              <Button color="inherit" sx={{ textTransform: 'none' }}>
+                <Link to='/signIn'>Login</Link>
+              </Button>}
           </Toolbar>
         </AppBar>
         <Box component="nav">
