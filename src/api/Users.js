@@ -1,10 +1,19 @@
-//import axios from '../utils/axios';
-import axios from 'axios';
-const baseUrl = process.env.NODE_ENV === 'production' ? 'shenyu16.com' : 'http://localhost:3003';
-export const fetchUsers = () => {
-  return axios(`/api/auth/users`);
+import axios from '../utils/axios';
+
+const prefix = 'api/auth';
+
+export const signIn = (email, password) => {
+  return axios().post(`${prefix}/signin`, { email, password });
 }
 
-export const createUser = (user) => {
-  return axios.post('/api/auth/addUser', {user});
+export const signUp = (email, password, username) => {
+  return axios().post(`${prefix}/signUp`, { email, password, username });
+}
+
+export const confirmEmail = (verificationCode, userId) => {
+  return axios().post(`${prefix}/confirmEmail`, { verificationCode, userId });
+}
+
+export const fetchUserInfoFromToken = (token) => {
+  return axios().get(`${prefix}/userInfo/${token}`);
 }

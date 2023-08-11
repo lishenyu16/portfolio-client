@@ -1,5 +1,6 @@
 import './index.css';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 function timeStatus() {
   let h = new Date().getHours();
@@ -12,14 +13,14 @@ function timeStatus() {
   }
 }
 
-export default (props) => {
-  const { user } = props;
+export default () => {
+  const { userInfo } = useSelector(state => state.user);
 
   return (
     <React.Fragment>
       <div style={{ padding: '5% 10%' }}>
-        {user ?
-          <p>Good {timeStatus()} <i>{user && user.username}</i> & welcome to my blogs !</p> :
+        {userInfo ?
+          <p>Good {timeStatus()} <i>{userInfo && userInfo.username}</i> & welcome to my blogs !</p> :
           <p>Good {timeStatus()} & welcome to my blogs !</p>
         }
         <p>Glad you came by. I wanted to welcome you and let you know I appreciate you spending time here at the blog very much.

@@ -1,58 +1,125 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchUsers, createUser } from '../../api/Users';
-import toastr from "toastr";
+import { signIn, signUp, confirmEmail, fetchUserInfoFromToken } from '../../api/Users';
+import Cookies from "js-cookie";
+import { toast } from 'react-toastify';
 
 const initialState = {
-  users: [],
-  user: null,
+  userInfo: null,
   loading: false,
+  errorMessage: '',
+  emailSentForConfirmation: false,
+  pendingConfirmEmail: true,
+  confirmedEmail: false,
 };
 
-export const getUsers = createAsyncThunk(
-  'user/getUsers',
-  async (_, {rejectWithValue}) => {
+export const confirmEmailThunk = createAsyncThunk(
+  'user/confirmEmail',
+  async ({ verificationCode, userId }, thunkApi) => {
     try {
-      const res = await fetchUsers();
+      const res = await confirmEmail(verificationCode, userId);
+      console.log(res.data);
       return res.data;
     } catch (err) {
-      console.log(err.message);
-      toastr.error(err.message);
-      return rejectWithValue(err.message);
+      console.log(err.data?.message);
+      toast.error(err.data?.message);
+      return thunkApi.rejectWithValue(err.data?.message);
     }
   }
 );
 
-export const addUser = createAsyncThunk(
-  'user/addUser',
-  async (user) => {
-    const res = await createUser(user);
-    return res.data;
+export const signInThunk = createAsyncThunk(
+  'user/signIn',
+  async ({ email, password }, thunkApi) => {
+    try {
+      const res = await signIn(email, password);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+      if (err.status !== 401) {
+        if (err.message) {
+          toast.error(err.message);
+        } else {
+          toast.error(err.data?.message);
+        }
+      }
+      // return thunkApi.rejectWithValue(err.message || err.data?.message);
+      return thunkApi.rejectWithValue({ statusCode: err.status, message: err.message || err.data?.message });
+    }
+  }
+);
+
+export const signUpThunk = createAsyncThunk(
+  'user/signUp',
+  async ({ email, password, username }, thunkApi) => {
+    try {
+      const { data } = await signUp(email, password, username);
+      return data;
+    } catch (err) {
+      console.log(err.data?.message);
+      toast.error(err.data?.message);
+      return thunkApi.rejectWithValue(err.data?.message);
+    }
+  }
+);
+
+export const getUserInfoThunk = createAsyncThunk(
+  'user/getUserInfo',
+  async (token, thunkApi) => {
+    try {
+      const { data } = await fetchUserInfoFromToken(token);
+      return data;
+    } catch (err) {
+      console.log(err.data?.message);
+      //toast.error(err.data?.message);
+      return thunkApi.rejectWithValue(err.data?.message);
+    }
   }
 );
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: state => {
-
+  reducers: {
+    logout: (state, action) => {
+      state.userInfo = null;
+      Cookies.remove('userInfo');
+    }
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getUsers.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.users = action.payload;
-      })
-      .addCase(addUser.pending || addUser.rejected, (state, action) => {
-        console.log('it is here: pending or rejected');
-        state.loading = true;
-      })
-      .addCase(addUser.fulfilled, (state, action) => {
-        state.loading = false;
-      });
-  }
+  extraReducers: {
+    [signInThunk.fulfilled]: (state, action) => {
+      let info = { ...action.payload };
+      delete info.success;
+      state.userInfo = info;
+      Cookies.set('userInfo', JSON.stringify(info), { expires: 1 });
+      state.emailSentForConfirmation = true;
+    },
+    [signInThunk.rejected]: (state, action) => {
+      console.log(action.payload);
+      state.errorMessage = action.payload.message;
+    },
+    [signUpThunk.fulfilled]: (state, action) => {
+      state.emailSentForConfirmation = true;
+    },
+    [signUpThunk.rejected]: (state, action) => {
+      console.log(action);
+      state.errorMessage = action.payload;
+    },
+    [confirmEmailThunk.fulfilled]: (state, action) => {
+      state.pendingConfirmEmail = false;
+      state.confirmedEmail = true;
+    },
+    [confirmEmailThunk.rejected]: (state, action) => {
+      console.log(action);
+      state.errorMessage = action.payload;
+    },
+    [getUserInfoThunk.fulfilled]: (state, action) => {
+      state.userInfo = action.payload;
+    },
+  },
 });
 
 export default userSlice;
+export const { logout } = userSlice.actions;
 
 
 

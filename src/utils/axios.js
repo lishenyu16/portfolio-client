@@ -1,23 +1,27 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+
+let baseUrl = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3003';
+axios.defaults.baseURL = baseUrl;
 
 export default (config = {}) => {
-  let baseUrl = '';
   const client =
     config && config.useBlob ?
       axios.create({
         timeout: 10000,
-        baseUrl,
+        //baseUrl,
         responseType: 'blob',
-        withCredentials: true
+        withCredentials: process.env.NODE_ENV === 'production',
       }) :
       axios.create({
         timeout: 10000,
-        baseUrl,
-        withCredentials: true
+        //baseUrl,
+        withCredentials: process.env.NODE_ENV === 'production',
       });
-  const onRequestSuccess = async (req) => {
+  const onRequestSuccess = (req) => {
     if (req) {
-      const token = await getAuthToken();
+      const token = Cookies.get('auth_token');
       if (token) {
         req.headers.Authorization = 'Bear ' + token;
       }
@@ -25,9 +29,9 @@ export default (config = {}) => {
     }
   }
   function errorResHandler(err) {
-    if (err.response && err.response.status === 401) {
-      toastr.error('Not Authorized');
-    }
+    // if (err.response && err.response.status === 401) {
+    //   toast.error('Not Authorized');
+    // }
     if (err.response) {
       return Promise.reject(err.response);
     }

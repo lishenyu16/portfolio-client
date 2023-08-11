@@ -1,0 +1,6 @@
+/* // Workaround to remove autofill color from inputs */
+input,
+select {
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}

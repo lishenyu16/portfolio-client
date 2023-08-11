@@ -3,7 +3,6 @@ import React, {useEffect} from 'react';
 export default () => {
 
   useEffect(() => {
-    console.log('is it re-rendered?');
     let sakura_point_vsh = `
         uniform mat4 uProjection;
         uniform mat4 uModelview;
@@ -1006,7 +1005,7 @@ export default () => {
     }
 
     function renderPostProcess() {
-      gl.enable(gl.TEXTURE_2D);
+      //gl.enable(gl.TEXTURE_2D);
       gl.disable(gl.DEPTH_TEST);
       var bindRT = function (rt, isclear) {
         gl.bindFramebuffer(gl.FRAMEBUFFER, rt.frameBuffer);

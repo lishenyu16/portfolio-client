@@ -8,6 +8,8 @@ import Button from '@mui/material/Button';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import './style.css';
 import './mobile.css';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default (props) => {
   const ref = useRef();
@@ -34,10 +36,11 @@ export default (props) => {
   }
 
   return (
-    <div className='layouts' ref={ref} style={{overflowY: "scroll", scrollBehavior: "smooth"}}>
+    <div className='layouts' ref={ref} style={{ overflowY: "scroll", scrollBehavior: "smooth" }}>
       <Canva />
       <Nav />
       <div className='layout'>
+        <ToastContainer />
         <Outlet />
         {isShowSlider && <Sider />}
         <Button
@@ -55,7 +58,15 @@ export default (props) => {
         </Button>
       </div>
       <div id='footer'>
-        Full Stack Marathon ©2023 Created by Shenyu
+        Full Stack Marathon ©{new Date().getFullYear()} Created by Shenyu
+        {/* <Typography variant="body2" color="text.secondary" align="center" {...props}>
+          {'Copyright © '}
+          <Link color="inherit" href="shenyu16.com">
+            shenyu16.com
+          </Link>{' '}
+          {new Date().getFullYear()}
+          {'.'}
+        </Typography> */}
       </div>
     </div>
   )

@@ -1,9 +1,11 @@
+import Cookies from "js-cookie";
+
 export function isMobileOrPc() {
   //true for mobile and false for pc
   return navigator.userAgent.match(/Android/i)
     || navigator.userAgent.match(/webOS/i)
     || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i)
+    // || navigator.userAgent.match(/Tablet|iPad/i)
     || navigator.userAgent.match(/iPod/i)
     || navigator.userAgent.match(/BlackBerry/i)
     || navigator.userAgent.match(/Windows Phone/i);
@@ -153,4 +155,8 @@ export function timestampToTime(timestamp, dayMinSecFlag) {
     return Y + M + D;
   }
   return Y + M + D + h + m + s;
+}
+
+export const getInfoFromCookie = () => {
+  return Cookies.get('userInfo') && JSON.parse(Cookies.get('userInfo'));
 }
