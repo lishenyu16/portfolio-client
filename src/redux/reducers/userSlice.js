@@ -76,14 +76,6 @@ export const getUserInfoThunk = createAsyncThunk(
   }
 );
 
-export const saveUserInfoThunk = createAsyncThunk(
-  'user/saveUserIpInfo',
-  async (ip, thunkApi) => {
-    const res = await saveVisitorInfo(ip);
-    console.log(res.data);
-  }
-)
-
 const userSlice = createSlice({
   name: 'user',
   initialState,
