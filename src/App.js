@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound';
 import Layouts from './views/layout';
 import './app.global.css';
 import { useDispatch } from 'react-redux';
-import { getUserInfoThunk } from './redux/reducers/userSlice';
+import { getUserInfoThunk, saveUserInfoThunk } from './redux/reducers/userSlice';
 import { getInfoFromCookie } from './utils/utils';
 import { saveVisitorInfo } from './api/Users';
 
@@ -29,8 +29,7 @@ function App() {
       try {
         const res = await fetch('https://api.ipify.org?format=json');
         const ipBody = await res.json();
-        const res2 = await saveVisitorInfo(ipBody.ip);
-        console.log(res2);
+        dispatch(saveUserInfoThunk(ipBody.ip));
       } catch (err) {
         console.log(err);
       }

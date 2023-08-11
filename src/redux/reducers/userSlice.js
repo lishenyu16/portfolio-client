@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signIn, signUp, confirmEmail, fetchUserInfoFromToken } from '../../api/Users';
+import { signIn, signUp, confirmEmail, fetchUserInfoFromToken, saveVisitorInfo } from '../../api/Users';
 import Cookies from "js-cookie";
 import { toast } from 'react-toastify';
 
@@ -75,6 +75,14 @@ export const getUserInfoThunk = createAsyncThunk(
     }
   }
 );
+
+export const saveUserInfoThunk = createAsyncThunk(
+  'user/saveUserIpInfo',
+  async (ip, thunkApi) => {
+    const res = await saveVisitorInfo(ip);
+    console.log(res.data);
+  }
+)
 
 const userSlice = createSlice({
   name: 'user',
