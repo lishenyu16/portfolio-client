@@ -1,2 +1,2 @@
 # portfolio-client
-The client for my portfolio website.
+The client source code for http//shenyu16.com
