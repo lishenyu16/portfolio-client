@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Index';
 import Articles from './pages/articles/Articles';
+import Article from './pages/articles/Article';
 import About from './pages/about/About';
 import Timeline from './pages/timeline/timeline';
 import SignIn from './pages/auth/SignIn';
@@ -15,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { getUserInfoThunk } from './redux/reducers/userSlice';
 import { getInfoFromCookie } from './utils/utils';
 import { saveVisitorInfo } from './api/Users';
+import CreateArticle from './pages/articles/CreateArticle';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,7 +43,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Layouts />}>
         <Route index element={<Home />} />
-        <Route path="/articles" element={<Articles />} />
+        <Route path="/articles" exact element={<Articles />} />
+        <Route path="/article/:articleId" element={<Article />} />
+        <Route path="/create-article" element={<CreateArticle />} />
         <Route path="/about" element={<About />} />
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/signin" element={<SignIn />} />

@@ -21,9 +21,12 @@ export default (config = {}) => {
       });
   const onRequestSuccess = (req) => {
     if (req) {
-      const token = Cookies.get('auth_token');
-      if (token) {
-        req.headers.Authorization = 'Bear ' + token;
+      const userInfo = Cookies.get('userInfo');
+      if (userInfo) {
+        const { token } = JSON.parse(userInfo);
+        if (token) {
+          req.headers.Authorization = 'Bear ' + token;
+        }
       }
       return req;
     }

@@ -17,6 +17,7 @@ import { signUpThunk } from '../../redux/reducers/userSlice';
 import validator from 'validator';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import debounce from 'lodash.debounce';
 
 const theme = createTheme();
 export const boxSx = {
@@ -63,8 +64,7 @@ export default function SignUp() {
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (!validator.isEmail(email)) {
       setErrors(pre => {
         return { ...pre, email: 'Please enter a valid email.' }
@@ -175,7 +175,7 @@ export default function SignUp() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={(e) => handleSubmit(e)}
+                onClick={debounce(handleSubmit, 500)}
               >
                 Sign Up
               </Button>

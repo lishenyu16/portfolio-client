@@ -12,6 +12,7 @@ import { signInThunk } from '../../redux/reducers/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { boxSx } from './SignUp';
 import { useNavigate } from 'react-router-dom';
+import debounce from 'lodash.debounce';
 
 export default () => {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ export default () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={(e) => handleSubmit(e)}
+            onClick={debounce(handleSubmit, 500)}
             disabled={!email || !password}
           >
             Sign In

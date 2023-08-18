@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
@@ -17,6 +17,8 @@ import { Box, AppBar, Drawer, IconButton, Toolbar, Button, MenuItem, Menu } from
 import { useSelector } from 'react-redux';
 import { logout } from '../redux/reducers/userSlice';
 import { useDispatch } from 'react-redux';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const linkActive = ({ isActive }) => {
   return {
@@ -32,6 +34,9 @@ const linkActive = ({ isActive }) => {
 
 export default (props) => {
   const { userInfo } = useSelector(state => state.user);
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const drawerWidth = 180;
@@ -68,12 +73,28 @@ export default (props) => {
     setUserMenu(null);
   };
 
+  const isArticlePage = () => {
+    return location.pathname.startsWith('/article/') || location.pathname.startsWith('/articles') ;
+  }
+  const handleClickWrite = () => {
+    if (userInfo) {
+      navigate('create-article');
+    } else {
+      navigate('/signUp');
+    }
+  }
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
       {navItems.map((item, i) => (
         <React.Fragment key={i}>{item}</React.Fragment>
       ))}
     </Box>
+  );
+  const WriteButton = (
+    <Button variant="text" sx={{ textTransform: 'none' }} onClick={handleClickWrite}>
+      <CreateOutlinedIcon /> Write
+    </Button>
   );
 
   if (isMobileOrPc()) { //if device is mobile
@@ -96,6 +117,7 @@ export default (props) => {
             >
               <MenuIcon />
             </IconButton>
+            {isArticlePage() && WriteButton}
             {userInfo ? (
               <div>
                 <IconButton
@@ -157,6 +179,7 @@ export default (props) => {
       <div style={{ position: 'absolute', right: '30px', top: '15px' }}>
         {userInfo ?
           <React.Fragment>
+            {isArticlePage() && WriteButton}
             <Button sx={{ textTransform: 'none', backgroundColor: 'lightgray', borderRadius: '17px' }} onClick={handleClickOnUserMenu}>
               {userInfo.username}
             </Button>
@@ -170,10 +193,10 @@ export default (props) => {
             // anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Avatar /> Profile
+                <Avatar sx={{width: '20px', height: '20px', marginRight: '5px'}} /> Profile
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Avatar /> My account
+                <Avatar sx={{width: '20px', height: '20px', marginRight: '5px'}} /> My account
               </MenuItem>
               <Divider />
 
@@ -190,11 +213,15 @@ export default (props) => {
                 Logout
               </MenuItem>
             </Menu>
-
           </React.Fragment> :
-          <Button color="inherit" sx={{ textTransform: 'none' }}>
-            <Link to='/signIn'>Login</Link>
-          </Button>}
+
+          <React.Fragment>
+            {isArticlePage() && WriteButton}
+            <Button color="inherit" sx={{ textTransform: 'none' }}>
+              <Link to='/signIn'>Login</Link>
+            </Button>
+          </React.Fragment>
+        }
       </div>
     </Box>
   );
