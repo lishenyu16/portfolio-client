@@ -6,7 +6,7 @@ import gfm from "remark-gfm";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import './styles.css';
-import { saveArticleThunk, setEditing } from '../../redux/reducers/articleSlice';
+import { editArticleThunk, saveArticleThunk, setEditing } from '../../redux/reducers/articleSlice';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 import { toast } from 'react-toastify';
@@ -15,7 +15,6 @@ export default () => {
   const dispatch = useDispatch();
   const { currentArticle } = useSelector(state => state.article);
   const navigate = useNavigate();
-  console.log(currentArticle);
   const [title, setTitle] = useState(currentArticle ? currentArticle.title : '');
   const [keywords, setKeywords] = useState(currentArticle ? currentArticle.keywords : '');
   const [description, setDescription] = useState(currentArticle ? currentArticle.description : '');
@@ -38,7 +37,8 @@ export default () => {
       return toast.error('Content length is too long');
     }
 
-    dispatch(saveArticleThunk({ title, keywords, content, description, img_url: link }))
+    const thunk = currentArticle ? editArticleThunk : saveArticleThunk;
+    dispatch(thunk({ title, keywords, content, description, img_url: link, articleId: currentArticle.article_id }))
       .then(res => {
         if (res.payload && res.payload.success) {
           navigate('/article/' + res.payload.article_id);

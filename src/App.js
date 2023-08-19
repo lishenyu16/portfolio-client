@@ -32,7 +32,6 @@ function App() {
         const res = await fetch('https://api.ipify.org?format=json');
         const ipBody = await res.json();
         const res2 = await saveVisitorInfo(ipBody.ip);
-        console.log(res2);
       } catch (err) {
         console.log(err);
       }

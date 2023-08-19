@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from 'react-toastify';
-import { getArticleById, getArticles, saveArticle } from "../../api/Articles";
+import { getArticleById, getArticles, saveArticle, updateArticle } from "../../api/Articles";
 
 const initialState = {
   isEditing: false,
@@ -9,6 +9,19 @@ const initialState = {
   currentArticle: null,
   articles: [],
 };
+
+export const editArticleThunk = createAsyncThunk(
+  'article/editArticle',
+  async (article, thunkApi) => {
+    try {
+      const { data } = await updateArticle(article);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return thunkApi.rejectWithValue(err.data?.message);
+    }
+  }
+);
 
 export const saveArticleThunk = createAsyncThunk(
   'article/saveArticle',
@@ -61,6 +74,18 @@ const articleSlice = createSlice({
     },
   },
   extraReducers: {
+    [editArticleThunk.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [editArticleThunk.fulfilled]: (state, action) => {
+      state.loading = false;
+      toast.info('Article is saved successfully!');
+    },
+    [editArticleThunk.rejected]: (state, action) => {
+      state.loading = false;
+      state.errorMessage = action.payload;
+      toast.error(state.errorMessage);
+    },
     [saveArticleThunk.pending]: (state, action) => {
       state.loading = true;
     },
