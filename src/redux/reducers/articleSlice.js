@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { getArticleById, getArticles, saveArticle } from "../../api/Articles";
 
 const initialState = {
+  isEditing: false,
   loading: false,
   errorMessage: '',
   currentArticle: null,
@@ -51,7 +52,12 @@ const articleSlice = createSlice({
   initialState,
   reducers: {
     setCurrentArticle: (state, action) => {
-      state.currentArticle = action.payload;
+      if (action.payload || (!action.payload && !state.isEditing)) {
+        state.currentArticle = action.payload;
+      }
+    },
+    setEditing: (state, action) => {
+      state.isEditing = action.payload;
     },
   },
   extraReducers: {
@@ -60,7 +66,7 @@ const articleSlice = createSlice({
     },
     [saveArticleThunk.fulfilled]: (state, action) => {
       state.loading = false;
-      toast.info('Article is created successfully!');
+      toast.info('Article is saved successfully!');
       console.log(action.payload);
     },
     [saveArticleThunk.rejected]: (state, action) => {
@@ -87,4 +93,4 @@ const articleSlice = createSlice({
 
 export default articleSlice;
 
-export const { setCurrentArticle } = articleSlice.actions;
+export const { setCurrentArticle, setEditing } = articleSlice.actions;

@@ -6,25 +6,28 @@ import gfm from "remark-gfm";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import './styles.css';
-import { saveArticleThunk } from '../../redux/reducers/articleSlice';
+import { saveArticleThunk, setEditing } from '../../redux/reducers/articleSlice';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 import { toast } from 'react-toastify';
 
-const sampleText = `
-\`\`\`sh
-# Code block
-\`\`\`
-`;
-
 export default () => {
   const dispatch = useDispatch();
+  const { currentArticle } = useSelector(state => state.article);
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [keywords, setKeywords] = useState('');
-  const [description, setDescription] = useState('');
-  const [link, setLink] = useState('');
-  const [content, setContent] = useState(sampleText);
+  console.log(currentArticle);
+  const [title, setTitle] = useState(currentArticle ? currentArticle.title : '');
+  const [keywords, setKeywords] = useState(currentArticle ? currentArticle.keywords : '');
+  const [description, setDescription] = useState(currentArticle ? currentArticle.description : '');
+  const [link, setLink] = useState(currentArticle ? currentArticle.img_url : '');
+  const [content, setContent] = useState(currentArticle ? currentArticle.content : '');
+
+  useEffect(() => {
+    return () => {
+      dispatch(setEditing(false));
+    }
+  }, [])
+
   const handleSubmit = () => {
     if (title.length === 0) {
       return toast.error('Title can not be empty');
@@ -34,6 +37,7 @@ export default () => {
     if (content.length > 10000) {
       return toast.error('Content length is too long');
     }
+
     dispatch(saveArticleThunk({ title, keywords, content, description, img_url: link }))
       .then(res => {
         if (res.payload && res.payload.success) {
@@ -46,10 +50,10 @@ export default () => {
 
   return (
     <div id='createArticle' style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: '15px', minHeight: '800px', paddingTop: '20px' }}>
-      <TextField placeholder='Enter the title' inputProps={{ style: { padding: 7 } }} onChange={(e) => setTitle(e.target.value)} />
-      <TextField placeholder='Key Words' inputProps={{ style: { padding: 7 } }} onChange={e => setKeywords(e.target.value)} />
-      <TextField placeholder='Description' inputProps={{ style: { padding: 7 } }} onChange={e => setDescription(e.target.value)} />
-      <TextField placeholder='Link of surface' inputProps={{ style: { padding: 7 } }} onChange={e => setLink(e.target.value)} />
+      <TextField value={title} placeholder='Enter the title' inputProps={{ style: { padding: 7 } }} onChange={(e) => setTitle(e.target.value)} />
+      <TextField value={keywords} placeholder='Key Words' inputProps={{ style: { padding: 7 } }} onChange={e => setKeywords(e.target.value)} />
+      <TextField value={description} placeholder='Description' inputProps={{ style: { padding: 7 } }} onChange={e => setDescription(e.target.value)} />
+      <TextField value={link} placeholder='Link of surface' inputProps={{ style: { padding: 7 } }} onChange={e => setLink(e.target.value)} />
       <Button onClick={debounce(handleSubmit, 1000)} sx={{ width: 'max-content' }}>Submit</Button>
       <textarea
         style={{ width: "100%" }}
