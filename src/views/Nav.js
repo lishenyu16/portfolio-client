@@ -19,6 +19,7 @@ import { logout } from '../redux/reducers/userSlice';
 import { useDispatch } from 'react-redux';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { setCurrentArticle } from '../redux/reducers/articleSlice';
 
 const linkActive = ({ isActive }) => {
   return {
@@ -78,6 +79,7 @@ export default (props) => {
   }
   const handleClickWrite = () => {
     if (userInfo) {
+      dispatch(setCurrentArticle(null));
       navigate('create-article');
     } else {
       navigate('/signUp');

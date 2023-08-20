@@ -42,7 +42,7 @@ export default () => {
             {new Date(currentArticle.created_on).toLocaleDateString()}
           </div>
         </div>
-        <ReactMarkdown plugins={[gfm]} children={currentArticle.content} />
+        <ReactMarkdown remarkPlugins={[gfm]} children={currentArticle.content} />
       </article>
     )
   };
