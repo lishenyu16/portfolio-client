@@ -38,7 +38,7 @@ export default () => {
     }
 
     const thunk = currentArticle ? editArticleThunk : saveArticleThunk;
-    dispatch(thunk({ title, keywords, content, description, img_url: link, articleId: currentArticle.article_id }))
+    dispatch(thunk({ title, keywords, content, description, img_url: link, articleId: currentArticle?.article_id }))
       .then(res => {
         if (res.payload && res.payload.success) {
           navigate('/article/' + res.payload.article_id);
