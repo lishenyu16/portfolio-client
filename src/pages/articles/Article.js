@@ -30,7 +30,7 @@ export default () => {
   if (currentArticle) {
     return (
       <article style={{ padding: '20px', background: '#eee', position: 'relative' }}>
-        {currentArticle.author_id === userInfo.userId && <div id='edit-button'>
+        {userInfo && userInfo.userId === currentArticle.author_id && <div id='edit-button'>
           <button onClick={handleEdit}>Edit</button>
           <span>/</span>
           <button onClick={() => console.log('delete')}>Delete</button>
