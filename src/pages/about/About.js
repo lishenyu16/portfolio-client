@@ -4,15 +4,19 @@ import ProfileImg from '../../assets/profile.png';
 
 const skills = [
   { skill: 'JavaScript', value: 90 },
+  { skill: 'TypeScript', value: 85 },
   { skill: 'Node.js', value: 85 },
+  { skill: 'C#', value: 85 },
   { skill: 'React', value: 90 },
-  { skill: 'MobX', value: 90 },
+  { skill: 'Angular', value: 70 },
   { skill: 'Redux', value: 90 },
+  { skill: 'MobX', value: 90 },
   { skill: 'HTML & CSS', value: 90 },
-  { skill: 'TypeScript', value: 80 },
-  { skill: 'PostgreSQL', value: 75 },
-  { skill: 'Vue', value: 75 },
-  { skill: 'C#', value: 60 },
+  { skill: 'PostgreSQL', value: 80 },
+  { skill: 'Oracle PL/SQL', value: 80 },
+  { skill: 'MS SQL', value: 80 },
+  { skill: 'AWS', value: 60 },
+  { skill: 'Vue', value: 60 },
 ];
 
 export default () => {
