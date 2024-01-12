@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import AppShortcutOutlinedIcon from '@mui/icons-material/AppShortcutOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
@@ -46,6 +47,7 @@ export default (props) => {
     <NavLink to='/' style={linkActive}><HomeOutlinedIcon style={{ marginRight: '5px' }} /> Home</NavLink>,
     <NavLink to='/articles' style={linkActive}><ArticleOutlinedIcon style={{ marginRight: '5px' }} /> Articles</NavLink>,
     <NavLink to='/timeline' style={linkActive}><TimelineOutlinedIcon style={{ marginRight: '5px' }} /> Timeline</NavLink>,
+    <NavLink to='/projects' style={linkActive}><AppShortcutOutlinedIcon style={{ marginRight: '5px' }} /> Projects</NavLink>,
     <NavLink to='/about' style={linkActive}><BadgeOutlinedIcon style={{ marginRight: '5px' }} /> About</NavLink>,
   ]
   const [mobileOpen, setMobileOpen] = React.useState(false);

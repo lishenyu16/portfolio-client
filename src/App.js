@@ -17,6 +17,7 @@ import { getUserInfoThunk } from './redux/reducers/userSlice';
 import { getInfoFromCookie } from './utils/utils';
 import { saveVisitorInfo } from './api/Users';
 import CreateArticle from './pages/articles/CreateArticle';
+import Projects from './pages/projects/project';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,11 +43,12 @@ function App() {
     <Routes>
       <Route path="/" element={<Layouts />}>
         <Route index element={<Home />} />
-        <Route path="/articles" exact element={<Articles />} />
+        <Route path="/articles" element={<Articles />} />
         <Route path="/article/:articleId" element={<Article />} />
         <Route path="/create-article" element={<CreateArticle />} />
         <Route path="/about" element={<About />} />
         <Route path="/timeline" element={<Timeline />} />
+        <Route path="/projects" element={<Projects />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
