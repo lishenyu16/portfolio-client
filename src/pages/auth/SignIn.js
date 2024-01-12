@@ -82,7 +82,7 @@ export default () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={debounce(handleSubmit, 500)}
+            onClick={debounce(handleSubmit, 3500, { leading: true })}
             disabled={!email || !password}
           >
             Sign In

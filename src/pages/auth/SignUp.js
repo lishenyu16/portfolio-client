@@ -175,7 +175,7 @@ export default function SignUp() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={debounce(handleSubmit, 500)}
+                onClick={debounce(handleSubmit, 3500, { leading: true })}
               >
                 Sign Up
               </Button>

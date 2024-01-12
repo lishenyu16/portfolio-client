@@ -54,7 +54,7 @@ export default () => {
       <TextField value={keywords} placeholder='Key Words' inputProps={{ style: { padding: 7 } }} onChange={e => setKeywords(e.target.value)} />
       <TextField value={description} placeholder='Description' inputProps={{ style: { padding: 7 } }} onChange={e => setDescription(e.target.value)} />
       <TextField value={link} placeholder='Link of surface' inputProps={{ style: { padding: 7 } }} onChange={e => setLink(e.target.value)} />
-      <Button onClick={debounce(handleSubmit, 1000)} sx={{ width: 'max-content' }}>Submit</Button>
+      <Button onClick={debounce(handleSubmit, 3000, { leading: true })} sx={{ width: 'max-content' }}>Submit</Button>
       <textarea
         style={{ width: "100%" }}
         rows={25}

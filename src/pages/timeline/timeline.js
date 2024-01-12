@@ -13,14 +13,29 @@ export default () => {
         className="vertical-timeline-element--work"
         contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
         contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-        date="09/2020 - present"
+        date="10/2023 - present"
+        iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+        icon={<WorkHistoryIcon />}
+      >
+        <h3 className="vertical-timeline-element-title">Sr Full Stack Web Developer</h3>
+        <h4 className="vertical-timeline-element-subtitle">Beckman Coulter, Brea, CA</h4>
+        <p>
+          Develop next generation label module from desktop application to web app using C# with Oracle PL/SQL and React for front end.
+        </p>
+      </VerticalTimelineElement>
+
+      <VerticalTimelineElement
+        className="vertical-timeline-element--work"
+        contentStyle={{ background: 'lightgray' }}
+        contentArrowStyle={{ borderRight: '7px solid  lightgray' }}
+        date="08/2020 - 07/2023"
         iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
         icon={<WorkHistoryIcon />}
       >
         <h3 className="vertical-timeline-element-title">Sr Software Engineer</h3>
         <h4 className="vertical-timeline-element-subtitle">Cast & Crew, Burbank, CA</h4>
         <p>
-          Develop/maintain customer facing payroll application website for the frontend
+          Develop/maintain customer facing payroll application with C# and React
         </p>
       </VerticalTimelineElement>
 
