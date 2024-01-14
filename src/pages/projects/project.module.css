@@ -1,0 +1,22 @@
+.projectContainer {
+  text-align: center;
+  filter: contrast(30);
+  margin-top: 10%;
+}
+
+.projectSpan {
+  font-size: 100px;
+  color: #fff;
+  animation: showup 4s forwards;
+}
+
+@keyframes showup {
+  from {
+    letter-spacing: -50px;
+    filter: blur(10px);
+  }
+  to {
+    letter-spacing: 10px;
+    filter: blur(2px);
+  }
+}
